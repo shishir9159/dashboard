@@ -1,15 +1,17 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
 interface MyPluginSettings {
+    loadOnStartUp: string;
     mySetting: string;
 }
 
 const DEFAULT_SETTINGS: MyPluginSettings = {
+    loadOnStartUp: 'race condition',
     mySetting: 'default'
 }
 
-export default class MyPlugin extends Plugin {
-    settings: MyPluginSettings;
+export class MyPlugin extends Plugin {
+    settings: MyPluginSettings = DEFAULT_SETTINGS;
 
     async onload() {
         await this.loadSettings();
@@ -19,6 +21,7 @@ export default class MyPlugin extends Plugin {
             // Called when the user clicks the icon.
             new Notice('This is a notice!');
         });
+
         // Perform additional things with the ribbon
         ribbonIconEl.addClass('my-plugin-ribbon-class');
 
